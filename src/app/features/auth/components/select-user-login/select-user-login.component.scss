@@ -1,0 +1,45 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  margin: 0;
+}
+.main-content {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+}
+.login-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 1rem;
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 1px 0px inset, rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px;
+  .tittle{
+    text-align: center;
+    font-weight:bold ;
+
+  }
+  .subtittle{
+    text-align: center;
+    font-weight: 200;
+
+  }
+}
+.form-content {
+  display: flex;
+  flex-direction: column;
+  padding-top: 1.5rem;
+  gap: 1rem;
+}
+.demo-label {
+  text-align: center;
+  margin-top: 0.5rem;
+  font-weight: 500;
+}
+.footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #f0f0f0;
+}

@@ -1,0 +1,62 @@
+<mat-toolbar style="border: solid 1px rebeccapurple">
+  <!-- Botón hamburguesa solo mobile -->
+  <button mat-icon-button class="mobile-menu-button" [matMenuTriggerFor]="mobileMenu">
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span class="app-title">E-commerce</span>
+
+  <span class="example-spacer"></span>
+
+
+  <div class="toolbar-links">
+    <button mat-icon-button matTooltip="Ir a productos"><mat-icon>storefront</mat-icon></button>
+  <button mat-icon-button
+        [matBadge]="cartCount"
+        matBadgeColor="accent"
+        [matBadgeHidden]="!cartCount">
+  <mat-icon>shopping_cart</mat-icon>
+</button>
+
+    <button mat-icon-button matTooltip="Mis compras">
+      <mat-icon>schedule</mat-icon>
+    </button>
+  </div>
+
+
+  <button class="btn-avatar" [matMenuTriggerFor]="userMenu">
+    <div class="avatar">
+      <img src="assets/profileUser.jpg" alt="profile-user" />
+    </div>
+  </button>
+
+
+  <mat-menu #userMenu="matMenu">
+    <div class="info-user" style="display: flex;">
+        <span class="name-user">juan perez</span>
+        <span class="email-user">emilemail.com</span>
+        <span class="type-user">VIP</span>
+    </div>
+
+    <button mat-menu-item>
+      <mat-icon>exit_to_app</mat-icon>
+      <span>SALIR</span>
+    </button>
+  </mat-menu>
+
+
+  <mat-menu #mobileMenu="matMenu">
+    <button mat-menu-item>
+      <mat-icon>storefront</mat-icon>
+      <span>Productos</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>shopping_cart</mat-icon>
+      <span>Mi carrito</span>
+    </button>
+    <button mat-menu-item>
+      <mat-icon>schedule</mat-icon>
+      <span>Mis compras</span>
+    </button>
+  </mat-menu>
+</mat-toolbar>

@@ -1,0 +1,49 @@
+<div class="layout">
+  <main class="main-content">
+    <mat-card class="login-card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title class="tittle">Inicio de sesión</mat-card-title>
+        <mat-card-subtitle class="subtittle">Ingrese sus credenciales para acceder a su cuenta</mat-card-subtitle>
+      </mat-card-header>
+
+      <mat-card-content class="form-content">
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput placeholder="example@email.com" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input matInput [type]="hide() ? 'password' : 'text'" />
+          <button mat-icon-button matSuffix (click)="clickEvent($event)" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide()">
+            <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <mat-card-actions>
+          <button mat-button>INGRESAR</button>
+        </mat-card-actions>
+
+        <mat-divider></mat-divider>
+        <span class="demo-label">o continuar con la cuenta demo</span>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Seleccione un usuario</mat-label>
+          <mat-select  [(ngModel)]="clienteSeleccionado" >
+            @for (user of users; track user) {
+              <mat-option [value]="user.id">{{user.nombre}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
+        <mat-card-actions>
+          <button mat-button (click)="ingresar()"  [disabled]="!clienteSeleccionado">INGRESAR COMO EL USUARIO SELECCIONADO</button>
+        </mat-card-actions>
+      </mat-card-content>
+    </mat-card>
+  </main>
+
+  <footer class="footer">
+    <span>© 2025 E-commerce</span>
+  </footer>
+</div>
