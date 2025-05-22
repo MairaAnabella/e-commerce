@@ -5,8 +5,9 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { CartService } from '../../services/cart-service.service';
+import { CartService } from '../../features/home/services/cart.service';
 import {MatBadgeModule} from '@angular/material/badge';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-header',
   imports: [
@@ -24,7 +25,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 export class HeaderComponent {
    cartCount: number = 0;
 
-  constructor(private cartService: CartService) {}
+  constructor(private cartService: CartService, private router:Router) {}
 
   ngOnInit() {
     this.cartService.cartCount$.subscribe(count => {
@@ -33,4 +34,10 @@ export class HeaderComponent {
     });
   }
 
+  goToCard(){
+    this.router.navigate(['/cart'])
+  }
+    goToProducts(){
+    this.router.navigate(['/dashboard'])
+  }
 }

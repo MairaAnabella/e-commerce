@@ -1,0 +1,63 @@
+<mat-card class="example-card" appearance="outlined" >
+  <mat-card-header>
+    <span class="tittle"> <span class="material-symbols-outlined">shopping_cart</span>
+      Tu carrito
+    </span>
+
+    <div class="badge">
+      {{cartCount}}
+    </div>
+
+  </mat-card-header>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-content>
+    @if(cartCount==0){
+    <div class="content-text">
+      <span>Tu carrito está vacío.</span>
+      <span>
+        Añade algunos productos a tu carrito.</span>
+    </div>
+    }
+
+
+    @if(cartCount>0){
+    @for(item of cartItems; track item){
+    <div class="cart-item">
+      <div class="image-box"></div>
+
+      <div class="info">
+        <div class="name">{{ item.nombre }}</div>
+        <div class="price">
+          {{ item.cantidad }} x {{ item.precio | currency:'USD' }}
+        </div>
+      </div>
+
+      <div class="controls">
+        <button mat-icon-button color="warn" (click)="removeItem(item)">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+    </div>
+    }
+    }
+
+
+
+
+
+  </mat-card-content>
+
+  <mat-divider></mat-divider>
+
+  <mat-card-footer>
+    <div class="content-footer">
+      <span id="total">Total:</span>
+      <span>{{ getTotal() | currency:'USD' }}</span>
+    </div>
+  </mat-card-footer>
+  <mat-card-actions>
+    <button mat-raised-button>Ver Carrito</button>
+  </mat-card-actions>
+</mat-card>

@@ -1,0 +1,37 @@
+
+.main-layout {
+  display: grid;
+  grid-template-columns: 3fr 1fr; /* productos más anchos que el carrito */
+  gap: 1rem;
+  padding: 1rem;
+  min-height: calc(100vh - 160px); /* resto del espacio después del header y footer */
+}
+
+.products-section {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.cart-section {
+  background-color: white;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+
+.footer {
+  text-align: center;
+  padding: 1rem;
+  background-color: #f0f0f0;
+} 
+
+@media (max-width: 768px) {
+  .cart-section {
+    display: none;
+  }
+
+  .main-layout {
+    grid-template-columns: 1fr; // sólo la sección de productos ocupa el ancho completo
+  }
+}

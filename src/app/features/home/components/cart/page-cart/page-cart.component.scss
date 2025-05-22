@@ -1,0 +1,93 @@
+.order-summary-card {
+  width: 100%;
+  max-width: 400px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 12px;
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+
+    h2 {
+      margin: 0;
+    }
+
+    .clear-text {
+      color: #f44336;
+      cursor: pointer;
+      font-size: 0.9rem;
+      margin-left: 0.25rem;
+    }
+  }
+
+  .cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+
+    .info {
+      .name {
+        font-weight: bold;
+      }
+
+      .price {
+        font-size: 0.9rem;
+
+        .original-price {
+          text-decoration: line-through;
+          color: gray;
+          margin-left: 0.5rem;
+        }
+
+        .discount {
+          color: #d32f2f;
+          background-color: #ffebee;
+          font-size: 0.8rem;
+          padding: 2px 4px;
+          border-radius: 4px;
+          margin-left: 0.3rem;
+        }
+      }
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+
+      button {
+        min-width: 32px;
+        height: 32px;
+      }
+    }
+  }
+
+  .total {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-top: 1.5rem;
+    border-top: 1px solid #ddd;
+    padding-top: 0.75rem;
+  }
+
+  .pay-button {
+    width: 100%;
+    margin-top: 1rem;
+    background-color: black;
+    color: white;
+  }
+}
+
+.image-box {
+  width: 50px;
+  height: 50px;
+  background-color: rgb(26, 24, 24);
+  border: 1px solid black;
+  margin-right: 12px;
+}

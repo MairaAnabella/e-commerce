@@ -10,11 +10,14 @@
 
 
   <div class="toolbar-links">
-    <button mat-icon-button matTooltip="Ir a productos"><mat-icon>storefront</mat-icon></button>
+    <button mat-icon-button matTooltip="Ir a productos" (click)="goToProducts()">
+      <mat-icon>storefront</mat-icon>
+    </button>
   <button mat-icon-button
         [matBadge]="cartCount"
         matBadgeColor="accent"
-        [matBadgeHidden]="!cartCount">
+        [matBadgeHidden]="!cartCount" 
+        (click)="goToCard()">
   <mat-icon>shopping_cart</mat-icon>
 </button>
 

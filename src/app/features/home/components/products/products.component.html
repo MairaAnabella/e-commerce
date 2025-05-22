@@ -1,15 +1,31 @@
-<mat-card class="product-card">
+<div class="content-cards">
+  @for (product of products; track product) {
+
+ <mat-card class="product-card">
   <mat-card-header>
-    <mat-card-title>{{ product.name }}</mat-card-title>
-    <mat-card-subtitle>{{ product.price | currency:'USD' }}</mat-card-subtitle>
+    <img mat-card-image [src]="product.image" alt="{{ product.nombre }}" width="250" class="card-img">
   </mat-card-header>
-  <img mat-card-image [src]="product.image" alt="{{ product.name }}">
+
   <mat-card-content>
-    <p>{{ product.description }}</p>
+    <span class="title">{{ product.nombre }}</span>
+    <p class="subtitle">{{ product.descripcion }}</p>
+    <span class="price">{{ product.precio | currency:'USD' }}</span>
   </mat-card-content>
+
   <mat-card-actions>
-    <button mat-raised-button color="primary" (click)="addToCart(product)">
+    <button mat-fab extended (click)="addToCart(product)" class="btn-add-cart">
+      <mat-icon>shopping_cart</mat-icon>
       Agregar al carrito
     </button>
   </mat-card-actions>
 </mat-card>
+
+
+  }
+
+</div>
+
+<!-- Botón "Ver más" -->
+<div style="text-align: center; margin-top: 1rem;" *ngIf="visibleProductsCount < products.length">
+  <button mat-raised-button color="primary" (click)="showMore()">Ver más productos</button>
+</div>
