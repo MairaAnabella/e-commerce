@@ -1,13 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-interface CartItem {
-  id: number;
-  nombre: string;
-  descripcion: string;
-  precio: number;
-  image: string;
-  cantidad: number;
-}
+import { CartItem } from '../../../shared/interfaces/cart-item';
+
 @Injectable({ providedIn: 'root' })
 export class CartService {
   private cartItems: CartItem[] = [];

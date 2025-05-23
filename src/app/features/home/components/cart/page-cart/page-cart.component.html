@@ -1,73 +1,69 @@
 <app-header></app-header>
 
 <main>
-    <h1>Carrito de compras</h1>
-    <mat-card appearance="outlined">
-  <mat-card-header>
-    <mat-card-title> Tu Carrito</mat-card-title>
-  </mat-card-header>
-
-  <mat-card-content>
-        <mat-card appearance="outlined">
-  <mat-card-header>
-    <mat-card-title>Cart Type:VIP_USER</mat-card-title>
-    <mat-card-subtitle>10% discount applied for VIP status</mat-card-subtitle>
-  </mat-card-header>
-</mat-card>
-
-
-
-<div class="order-summary-card">
-<!--   <div class="header">
-    <h2>Tu pedido</h2>
-    <button mat-icon-button color="warn" (click)="clearCart()">
-      <mat-icon>delete</mat-icon>
-    </button>
-    <span class="clear-text" (click)="clearCart()">Vaciar</span>
-  </div> -->
-
-  <div *ngFor="let item of cartItems" class="cart-item">
-    <div class="image-box"></div>
-    <div class="info">
-      <div class="name">{{ item.nombre }}</div>
-      <div class="price">
-        <span *ngIf="item.descuento">
-          {{ item.precioConDescuento | currency:'USD' }}
-          <span class="original-price">{{ item.precio | currency:'USD' }}</span>
-          <span class="discount">-{{ item.descuento }}%</span>
-        </span>
-        <span *ngIf="!item.descuento">
-          {{ item.precio | currency:'USD' }}
-        </span>
-      </div>
+  <h1 >Carrito de compras</h1>
+  <mat-card appearance="outlined" class="content-order">
+    <mat-card-header>
+      <mat-card-title style="font-weight: bold; margin-bottom: 0.5rem;"> Tu Carrito</mat-card-title>
+    </mat-card-header>
+    @if(cartCount==0){
+      <mat-card-content style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+         <div class="content-text">
+ <span class="material-symbols-outlined" style="font-size: 5rem;">
+shopping_cart
+</span>
+<br>
+      <span>Tu carrito está vacío.</span><br>
+      <span>
+        Añade algunos productos a tu carrito.</span>
     </div>
-
-    <div class="controls">
-      <button mat-mini-button>−</button>
-      <span>{{ item.cantidad }}</span>
-      <button mat-mini-button >+</button>
-    </div> 
-  </div>
-
-  <div class="total">
-    <span>Total</span>
-   <!--  <span>{{ getTotal() | currency:'USD' }}</span> -->
-  </div>
-
-  <button mat-flat-button color="primary" class="pay-button">
-    Proceder al pago
-  </button>
-</div>
-
-
-
-  </mat-card-content>
-
-
-  <mat-card-actions>
-    <button mat-button>Learn More</button>
-  </mat-card-actions>
-</mat-card>
+      
+        <button mat-fab extended style="max-width: 25%;" (click)="goToProducts()">
+          Añadir productos
+      </button>
+      
+      </mat-card-content>
+   
+    }
+ @if(cartCount>0){
+    <mat-card-content>
+      <mat-card appearance="outlined">
+        <mat-card-header>
+          <mat-card-title>Cart Type:VIP_USER</mat-card-title>
+          <mat-card-subtitle>10% discount applied for VIP status</mat-card-subtitle>
+        </mat-card-header>
+      </mat-card>
+      <div class="order-summary-card">
+        <div *ngFor="let item of cartItems" class="cart-item">
+          <div class="image-box"></div>
+          <div class="info">
+            <div class="name">{{ item.nombre }}</div>
+            <div class="price">
+              {{ item.cantidad }} x {{ item.precio | currency:'USD' }}
+            </div>
+          </div>
+          <div class="controls">
+            <button mat-icon-button (click)="decreaseQuantity(item)"><mat-icon>remove</mat-icon></button>
+            <span>{{ item.cantidad }}</span>
+            <button mat-icon-button (click)="increaseQuantity(item)"> <mat-icon>add</mat-icon></button>
+          </div>
+        </div>
+        <div class="total">
+          <span>Total</span>
+          <span>{{ getTotal() | currency:'USD' }}</span>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-fab extended class="btn">
+        Proceder al pago
+      </button>
+      <button mat-fab extended style="margin-left: 1rem;">
+        Cancelar Carrito
+      </button>
+    </mat-card-actions>
+  }
+  </mat-card>
 
 
 

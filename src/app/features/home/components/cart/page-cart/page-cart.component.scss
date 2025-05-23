@@ -1,10 +1,12 @@
-.order-summary-card {
-  width: 100%;
-  max-width: 400px;
-  padding: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border-radius: 12px;
 
+.content-order{
+  max-width: 90%;
+  margin:0 5rem 0 5rem;
+}
+.order-summary-card {
+  width: 90%;
+  max-width: 630px;
+  padding: 1rem;
   .header {
     display: flex;
     align-items: center;
@@ -59,13 +61,10 @@
       align-items: center;
       gap: 0.5rem;
 
-      button {
-        min-width: 32px;
-        height: 32px;
-      }
     }
+  
   }
-
+ 
   .total {
     display: flex;
     justify-content: space-between;
@@ -76,12 +75,7 @@
     padding-top: 0.75rem;
   }
 
-  .pay-button {
-    width: 100%;
-    margin-top: 1rem;
-    background-color: black;
-    color: white;
-  }
+ 
 }
 
 .image-box {
@@ -90,4 +84,10 @@
   background-color: rgb(26, 24, 24);
   border: 1px solid black;
   margin-right: 12px;
+}
+
+.content-text{
+  text-align: center; 
+  font-size: 1.2rem;
+  padding: 1rem;
 }

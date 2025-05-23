@@ -4,14 +4,7 @@ import { MatCardModule } from '@angular/material/card';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-
-interface Product {
-  id: number,
-  nombre: string,
-  precio: number,
-  image: string,
-  descripcion: string
-}
+import { Product } from '../../../../shared/interfaces/product';
 
 
 @Component({

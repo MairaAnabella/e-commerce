@@ -6,15 +6,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatDividerModule} from '@angular/material/divider';
+import { CartItem } from '../../../../../shared/interfaces/cart-item';
 
- interface CartItem {
-  id:number;
-  nombre: string;
-  descripcion: string;
-  precio: number;
-  image: string;
-  cantidad: number;
-}
 
 
 
@@ -57,10 +50,7 @@ export class ResumeCartComponent {
     this.cartService.increaseQuantity(item);
   }
 
-  decreaseQuantity(item: any) {
-   this.cartService.decreaseQuantity(item);
-  }
-
+ 
   clearCart() {
     this.cartService.clearCart();
   }
