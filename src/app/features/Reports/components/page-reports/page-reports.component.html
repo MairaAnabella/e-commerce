@@ -1,0 +1,64 @@
+<app-header></app-header>
+
+<main>
+    <mat-card class="content-report">
+        <mat-card-content>
+            <span>Reportes de clientes</span>
+            <br>
+            <br>
+            <div style="display: flex; flex-direction: column; ">
+                <mat-form-field appearance="outline">
+                    <mat-label>Tipo de cliente</mat-label>
+                    <mat-select>
+                        @for (food of foods; track food) {
+                        <mat-option [value]="food.value">{{food.viewValue}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+
+                <!-- @if(){} -->
+                <div style="display: flex ">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Año</mat-label>
+                        <mat-select>
+                            @for (anio of anios; track anio) {
+                            <mat-option [value]="anio.value">{{anio.viewValue}}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field appearance="outline" style="margin-left: 1rem;">
+                        <mat-label>Meses</mat-label>
+                        <mat-select>
+                            @for (mes of meses; track mes) {
+                            <mat-option [value]="mes.value">{{mes.viewValue}}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+
+                <button mat-fab extended>
+                    Generar Reporte
+                </button>
+                <br>
+                <br>
+                <span style="margin-bottom: 20px;">Clientes VIP</span>
+                <mat-list role="list">
+                    <mat-list-item role="listitem" style="height: 35%; margin-bottom: 10px;">
+                        <!-- @for() -->
+                        <div style="display: flex; flex-direction: column;">
+                            <span class="nombre">John Doe</span>
+                            <span class="email">johnexample.com</span>
+                            <span class="fecha">VIP desde: 14/1/2023</span>
+                        </div>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                    <mat-list-item role="listitem">Item 2</mat-list-item>
+                    <mat-list-item role="listitem">Item 3</mat-list-item>
+                </mat-list>
+
+
+            </div>
+        </mat-card-content>
+    </mat-card>
+
+</main>

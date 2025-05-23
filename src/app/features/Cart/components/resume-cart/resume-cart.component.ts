@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CartService } from '../../../services/cart.service';
+import { CartService } from '../../services/cart.service'; 
 import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatDividerModule} from '@angular/material/divider';
-import { CartItem } from '../../../../../shared/interfaces/cart-item';
+import { CartItem } from '../../../../shared/interfaces/cart-item'; 
 
 
 

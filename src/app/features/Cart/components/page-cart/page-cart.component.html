@@ -1,0 +1,67 @@
+<app-header></app-header>
+
+<main>
+    <h1 class="tittle">Carrito de compras</h1>
+    <mat-card class="content-order">
+
+        @if(cartCount==0){
+        <mat-card-content style="display: flex; justify-content: center; flex-direction: column; align-items: center;">
+            <div class="content-text">
+                <span class="material-symbols-outlined" style="font-size: 5rem;">
+                    shopping_cart
+                </span>
+                <br>
+                <span>Tu carrito está vacío.</span><br>
+                <span>
+                    Añade algunos productos a tu carrito.</span>
+            </div>
+
+            <button mat-fab extended style="max-width: 50%;" (click)="goToProducts()">
+                Añadir productos
+            </button>
+
+        </mat-card-content>
+        }
+        @if(cartCount>0){
+        <mat-card-content>
+            <mat-card appearance="outlined">
+                <mat-card-header>
+                    <mat-card-title>Cart Type:VIP_USER</mat-card-title>
+                    <mat-card-subtitle>10% discount applied for VIP status</mat-card-subtitle>
+                </mat-card-header>
+            </mat-card>
+            <div class="order-summary-card">
+                <div *ngFor="let item of cartItems" class="cart-item">
+                    <div class="image-box"></div>
+                    <div class="info">
+                        <div class="name">{{ item.nombre }}</div>
+                        <div class="price">
+                            {{ item.cantidad }} x {{ item.precio | currency:'USD' }}
+                        </div>
+                    </div>
+                    <div class="controls">
+                        <button mat-icon-button (click)="decreaseQuantity(item)"><mat-icon>remove</mat-icon></button>
+                        <span>{{ item.cantidad }}</span>
+                        <button mat-icon-button (click)="increaseQuantity(item)"> <mat-icon>add</mat-icon></button>
+                    </div>
+                </div>
+                <div class="total">
+                    <span>Total</span>
+                    <span>{{ getTotal() | currency:'USD' }}</span>
+                </div>
+            </div>
+        </mat-card-content>
+        <mat-card-actions>
+            <button mat-fab class="btn">
+                Proceder al pago
+            </button>
+            <button mat-fab  style="margin-left: 1rem;" class="btn">
+                Cancelar Carrito
+            </button>
+        </mat-card-actions>
+        }
+    </mat-card>
+
+
+
+</main>

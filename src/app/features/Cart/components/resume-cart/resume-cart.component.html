@@ -1,4 +1,4 @@
-<mat-card class="example-card" appearance="outlined" >
+<mat-card class="example-card"  >
   <mat-card-header>
     <span class="tittle"> <span class="material-symbols-outlined">shopping_cart</span>
       Tu carrito
@@ -22,7 +22,7 @@
     }
 
 
-    @if(cartCount>0){
+    @if(cartCount!=0){
     @for(item of cartItems; track item){
     <div class="cart-item">
       <div class="image-box"></div>
@@ -41,15 +41,8 @@
       </div>
     </div>
     }
-    }
-
-
-
-
-
-  </mat-card-content>
-
-  <mat-divider></mat-divider>
+    
+<mat-divider></mat-divider>
 
   <mat-card-footer>
     <div class="content-footer">
@@ -60,4 +53,10 @@
   <mat-card-actions>
     <button mat-raised-button>Ver Carrito</button>
   </mat-card-actions>
+
+    }
+
+  </mat-card-content>
+
+  
 </mat-card>

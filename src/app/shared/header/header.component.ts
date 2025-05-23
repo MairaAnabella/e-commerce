@@ -5,7 +5,7 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import {MatMenuModule} from '@angular/material/menu';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import { CartService } from '../../features/home/services/cart.service';
+import { CartService } from '../../features/Cart/services/cart.service'; 
 import {MatBadgeModule} from '@angular/material/badge';
 import { Router } from '@angular/router';
 @Component({
@@ -39,5 +39,12 @@ export class HeaderComponent {
   }
     goToProducts(){
     this.router.navigate(['/dashboard'])
+  }
+
+  goToReport(){
+    this.router.navigate(['/report'])
+  }
+   goToShopping(){
+    this.router.navigate(['/MyPurchases'])
   }
 }

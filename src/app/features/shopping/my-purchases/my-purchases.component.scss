@@ -1,11 +1,12 @@
-
-.content-order{
-  max-width: 90%;
-  margin:0 5rem 0 5rem;
+.content-cards {
+  margin: 10px;
+  padding: 1rem;
+  border-radius: 15px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
+
 .order-summary-card {
   width: 90%;
-  max-width: 630px;
   padding: 1rem;
   .header {
     display: flex;

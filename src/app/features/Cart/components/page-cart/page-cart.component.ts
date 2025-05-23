@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from '../../../../../shared/header/header.component';
+import { HeaderComponent } from '../../../../shared/header/header.component'; 
 import {MatButtonModule} from '@angular/material/button';
 import {MatCardModule} from '@angular/material/card';
-import { CartItem } from '../../../../../shared/interfaces/cart-item';
-import { CartService } from '../../../services/cart.service';
+import { CartItem } from '../../../../shared/interfaces/cart-item'; 
+import { CartService } from '../../services/cart.service'; 
 import { MatIconModule } from '@angular/material/icon';
 import { Router} from '@angular/router';
 @Component({

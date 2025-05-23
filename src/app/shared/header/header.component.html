@@ -1,4 +1,4 @@
-<mat-toolbar style="border: solid 1px rebeccapurple">
+<mat-toolbar style=" background-color: #9EC6F3; color: #FBFBFB ;">
   <!-- Botón hamburguesa solo mobile -->
   <button mat-icon-button class="mobile-menu-button" [matMenuTriggerFor]="mobileMenu">
     <mat-icon>menu</mat-icon>
@@ -10,9 +10,15 @@
 
 
   <div class="toolbar-links">
+
+    <button mat-icon-button matTooltip="Ver clientes" (click)="goToReport()">
+      <mat-icon>co_present</mat-icon>
+    </button>
+
     <button mat-icon-button matTooltip="Ir a productos" (click)="goToProducts()">
       <mat-icon>storefront</mat-icon>
     </button>
+
   <button mat-icon-button
         [matBadge]="cartCount"
         matBadgeColor="accent"
@@ -21,7 +27,7 @@
   <mat-icon>shopping_cart</mat-icon>
 </button>
 
-    <button mat-icon-button matTooltip="Mis compras">
+    <button mat-icon-button matTooltip="Mis compras" (click)="goToShopping()">
       <mat-icon>schedule</mat-icon>
     </button>
   </div>
@@ -49,17 +55,21 @@
 
 
   <mat-menu #mobileMenu="matMenu">
-    <button mat-menu-item>
+    <button mat-menu-item (click)="goToProducts()">
       <mat-icon>storefront</mat-icon>
       <span>Productos</span>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item (click)="goToCard()">
       <mat-icon>shopping_cart</mat-icon>
       <span>Mi carrito</span>
     </button>
-    <button mat-menu-item>
+    <button mat-menu-item (click)="goToShopping()">
       <mat-icon>schedule</mat-icon>
       <span>Mis compras</span>
+    </button>
+     <button mat-menu-item (click)="goToReport()">
+      <mat-icon>co_present</mat-icon>
+      <span>Reporte de Clientes</span>
     </button>
   </mat-menu>
 </mat-toolbar>

@@ -1,0 +1,57 @@
+<app-header></app-header>
+<main>
+    <div class="content-cards">
+        <mat-card-header>Historial de Compras</mat-card-header>
+        <br>
+        <br>
+        <mat-card-content>
+            <mat-accordion>
+                <!--@for  -->
+                <mat-expansion-panel (opened)="panelOpenState.set(true)" (closed)="panelOpenState.set(false)">
+                    <mat-expansion-panel-header style="height: 100%;">
+                        <mat-panel-title>
+                            <div style="display: flex;  flex-direction: column;">
+                                <span><mat-icon fontIcon="local_mall"></mat-icon> Compra N°10</span>
+                                <span>20/05/2025 22:09</span>
+                            </div>
+                        </mat-panel-title>
+
+                        <div style="display: flex; flex-direction: column;margin-right: 2%;">
+                            <span>$31999.97</span>
+                            <span>2 productos</span>
+                        </div>
+
+                    </mat-expansion-panel-header>
+                    <mat-divider></mat-divider>
+
+                    <div style="background-color: transparent; border: none;">
+                        <mat-card-content>
+
+                            <div class="order-summary-card">
+                                <div *ngFor="let item of cartItems" class="cart-item">
+                                    <div class="image-box"></div>
+                                    <div class="info">
+                                        <div class="name">{{ item.nombre }}</div>
+                                        <div class="price">
+                                            {{ item.cantidad }} x {{ item.precio | currency:'USD' }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="total">
+                                    <span>Total</span>
+                                    <span>{{ getTotal() | currency:'USD' }}</span>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </div>
+
+                </mat-expansion-panel>
+                
+            </mat-accordion>
+
+
+        </mat-card-content>
+
+
+    </div>
+</main>
