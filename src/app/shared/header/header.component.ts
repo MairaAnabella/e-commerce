@@ -8,6 +8,7 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import { CartService } from '../../features/Cart/services/cart.service'; 
 import {MatBadgeModule} from '@angular/material/badge';
 import { Router } from '@angular/router';
+import { UserService } from '../../core/user.service';
 @Component({
   selector: 'app-header',
   imports: [
@@ -24,16 +25,19 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
    cartCount: number = 0;
+ user:any;
 
-  constructor(private cartService: CartService, private router:Router) {}
+  constructor(private cartService: CartService, private router:Router , private userService:UserService) {}
 
   ngOnInit() {
     this.cartService.cartCount$.subscribe(count => {
       this.cartCount = count;
       console.log(this.cartCount)
     });
+   this.user =this.userService.getUsuario();
+  
+   
   }
-
   goToCard(){
     this.router.navigate(['/cart'])
   }

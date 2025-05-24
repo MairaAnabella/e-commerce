@@ -8,12 +8,9 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSelectModule } from '@angular/material/select';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { User } from '../../../../shared/interfaces/user';
+import { UserService } from '../../../../core/user.service';
 
-
-interface User {
-  id: string;
-  nombre: string;
-}
 
 @Component({
   selector: 'app-select-user-login',
@@ -34,13 +31,15 @@ interface User {
 })
 export class SelectUserLoginComponent {
   clienteSeleccionado: any = null;
-  users: User[] = [
-    { id: '0', nombre: 'Miguel Lopez (VIP)' },
-    { id: '1', nombre: 'Melany Rojas' },
-    { id: '1', nombre: 'Juan Perez (VIP)' },
-  ];
+  users: User[] = [];
+  nombreUser: string = '';
   hide = signal(true);
-  constructor(private router: Router) { }
+
+  constructor(private router: Router, private userService: UserService) { }
+
+  ngOnInit() {
+    this.userService.getUsers().subscribe(data => this.users = data);
+  }
 
   clickEvent(event: MouseEvent) {
     this.hide.set(!this.hide());
@@ -49,15 +48,13 @@ export class SelectUserLoginComponent {
 
 
   ingresar(): void {
+    const seleccionado = this.users.find(u => u.id === this.clienteSeleccionado);
 
-    console.log(this.clienteSeleccionado)
-    this.users.forEach(user => {
-      if (this.clienteSeleccionado) {
-        localStorage.setItem('clienteId', user.id);
-        localStorage.setItem('clienteNombre', user.nombre);
-        this.router.navigate(['/dashboard']);
-      }
-    });
+    if (seleccionado) {
+      this.userService.setUsuario(seleccionado);
+      localStorage.setItem('usuarioSeleccionado', 'true'); 
+      this.router.navigate(['/dashboard']);
+    }
 
 
   }
