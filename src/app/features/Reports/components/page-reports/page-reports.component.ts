@@ -1,22 +1,23 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from "../../../../shared/header/header.component";
-import {MatCardModule} from '@angular/material/card';
-import {MatInputModule} from '@angular/material/input';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
-import {MatListModule} from '@angular/material/list';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
+import { MatDividerModule } from '@angular/material/divider';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { API_CONFIG } from '../../../../config/config';
+import { ClientesVipService } from '../../services/clientes-vip.service';
 export interface ClienteVIP {
   id: number;
-  nombre: string;
+  name: string;
   email: string;
-  fecha_alta: string | null; 
-  fecha_baja: string | null; 
+  fecha_alta: string | null;
+  fecha_baja: string | null;
 }
 
 
@@ -33,17 +34,19 @@ export interface ClienteVIP {
     MatListModule,
     MatDividerModule,
     FormsModule
-   
+
   ],
   templateUrl: './page-reports.component.html',
   styleUrl: './page-reports.component.scss'
 })
 export class PageReportsComponent {
-  
- tipoConsulta: string = 'actuales'; // 'actuales', 'alta', 'baja'
+
+
   anioSeleccionado: string = '';
   mesSeleccionado: string = '';
   clientes: ClienteVIP[] = [];
+  url?: string;
+
 
   anios = [
     { value: '2024', viewValue: '2024' },
@@ -65,73 +68,46 @@ export class PageReportsComponent {
     { value: '11', viewValue: 'Noviembre' },
     { value: '12', viewValue: 'Diciembre' }
   ];
-tipoSeleccionado: string = 'actuales';
-  constructor(private http: HttpClient) {}
-resultados: ClienteVIP[] = [];
-  ngOnInit(): void {
-    this.obtenerClientes();
-  }
+  tipoSeleccionado: string = 'actuales';
+  constructor(private http: HttpClient, private clienteService:ClientesVipService) { }
 
-  obtenerClientes(): void {
- const urlBase = 'http://localhost:8000/api/clientes-vip'; // Ajustá si cambia
+  obtenerClientesVip(): void {
+    console.log('hola');
+    const urlBase = API_CONFIG.apiUrl + 'reportes/clientes-vip-actuales';
 
-  let endpoint = '';
-  if (this.tipoSeleccionado === 'actuales') {
-    endpoint = 'actuales';
-  } else if (this.tipoSeleccionado === 'alta') {
-    endpoint = 'alta';
-  } else if (this.tipoSeleccionado === 'baja') {
-    endpoint = 'baja';
-  }
-
-  const url = `${urlBase}/${endpoint}?anio=${this.anioSeleccionado}&mes=${this.mesSeleccionado}`;
-
-  fetch(url)
-    .then(res => {
-      if (!res.ok) throw new Error('Error al consultar los clientes');
-      return res.json();
-    })
-    .then((data: ClienteVIP[]) => {
-      this.resultados = data;
-    })
-    .catch(err => {
-      console.error('Error al obtener reporte:', err);
-    });
-}
-
-generarReporte() {
-  const body = {
-    anio: this.anioSeleccionado,
-    mes: this.mesSeleccionado,
-  };
-
-  let endpoint = '';
-  switch (this.tipoSeleccionado) {
-    case 'actuales':
-      endpoint = 'clientes-vip-actuales';
-      break;
-    case 'alta':
-      endpoint = 'clientes-alta-vip';
-      break;
-    case 'baja':
-      endpoint = 'clientes-baja-vip';
-      break;
-    default:
-      return;
-  }
-
-  this.http.post<ClienteVIP[]>(`${API_CONFIG.apiUrl}reportes/${endpoint}`, body)
-    .subscribe({
-      next: (data) => {
+    fetch(urlBase)
+      .then(res => {
+        if (!res.ok) throw new Error('Error al consultar los clientes');
+        return res.json();
+      })
+      .then((data: ClienteVIP[]) => {
         this.clientes = data;
-      },
-      error: (err) => {
-        console.error('Error al generar el reporte:', err);
-      }
+      })
+      .catch(err => {
+        console.error('Error al obtener reporte:', err);
+      });
+
+  }
+
+
+obtenerClientes(): void {
+  const mes = Number(this.mesSeleccionado);
+const anio = Number(this.anioSeleccionado);
+console.log(this.tipoSeleccionado)
+  if (this.tipoSeleccionado === 'actuales') {
+    this.obtenerClientesVip();
+  } else if (this.tipoSeleccionado === 'alta') {
+    this.clienteService.getAltasVip(mes, anio).subscribe({
+      next: (data) => this.clientes = data,
+      error: (err) => console.error('Error al obtener altas VIP:', err)
     });
+  } else if (this.tipoSeleccionado === 'baja') {
+    this.clienteService.getBajasVip(mes,anio).subscribe({
+      next: (data) => this.clientes = data,
+      error: (err) => console.error('Error al obtener bajas VIP:', err)
+    });
+  }
 }
 
-  /* generarReporte(): void {
-    this.obtenerClientes();
-  } */
+
 }
