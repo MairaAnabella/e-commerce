@@ -5,6 +5,8 @@ import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Product } from '../../../../shared/interfaces/product';
+import { ProductService } from '../../services/product.service';
+
 
 
 @Component({
@@ -21,55 +23,13 @@ import { Product } from '../../../../shared/interfaces/product';
 export class ProductsComponent {
 
   visibleProductsCount = 4;
-  products: Product[] = [
-    {
-      id: 1,
-      nombre: 'Producto Demo',
-      precio: 29.99,
-      image: 'assets/profileUser.jpg',
-      descripcion: 'Una breve descripción del producto.'
-    },
-    {
-      id: 2,
-      nombre: 'Producto Demo 2',
-      precio: 50.99,
-      image: 'assets/profileUser.jpg',
-      descripcion: 'Una breve descripción del producto 2.'
-    },
-    {
-      id: 3,
-      nombre: 'Producto Demo',
-      precio: 29.99,
-      image: 'assets/profileUser.jpg',
-      descripcion: 'Una breve descripción del producto.'
-    },
-    {
-      id: 4,
-      nombre: 'Producto Demo 2',
-      precio: 50.99,
-      image: 'assets/profileUser.jpg',
-      descripcion: 'Una breve descripción del producto 2.'
-    },
-    {
-      id: 5,
-      nombre: 'Producto Demo',
-      precio: 29.99,
-      image: 'assets/profileUser.jpg',
-      descripcion: 'Una breve descripción del producto.'
-    },
-    {
-      id: 6,
-      nombre: 'Producto Demo 2',
-      precio: 50.99,
-      image: 'assets/profileUser.jpg',
-      descripcion: 'Una breve descripción del producto 2.'
-    }
+  products: Product[] = [];
 
-  ]
-    ;
+  constructor(private cartService: CartService, private productService:ProductService) { }
 
-  constructor(private cartService: CartService) { }
-
+   ngOnInit() {
+    this.productService.getProducto().subscribe(data => this.products = data);
+  }
 
   get visibleProducts() {
     return this.products.slice(0, this.visibleProductsCount);

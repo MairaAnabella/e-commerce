@@ -51,4 +51,8 @@ export class HeaderComponent {
    goToShopping(){
     this.router.navigate(['/MyPurchases'])
   }
+   exit(){
+    this.userService.limpiarUsuario();
+    this.router.navigate(['/MyPurchases'])
+  }
 }

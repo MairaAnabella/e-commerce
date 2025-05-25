@@ -26,7 +26,7 @@
         <mat-card-content>
             <mat-card appearance="outlined">
                 <mat-card-header>
-                    <mat-card-title>Cart Type:VIP_USER</mat-card-title>
+                    <mat-card-title>Tipo de carrito:{{tipoCarrito}}</mat-card-title>
                     <mat-card-subtitle>10% discount applied for VIP status</mat-card-subtitle>
                 </mat-card-header>
             </mat-card>
@@ -52,10 +52,10 @@
             </div>
         </mat-card-content>
         <mat-card-actions>
-            <button mat-fab class="btn">
+            <button mat-fab class="btn" (click)="finalizarCompra()">
                 Proceder al pago
             </button>
-            <button mat-fab  style="margin-left: 1rem;" class="btn">
+            <button mat-fab  style="margin-left: 1rem;" class="btn" (click)="cancelarCarrito()">
                 Cancelar Carrito
             </button>
         </mat-card-actions>

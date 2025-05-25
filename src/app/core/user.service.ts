@@ -1,23 +1,24 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-
+import { API_CONFIG } from '../config/config';
 @Injectable({ providedIn: 'root' })
 export class UserService {
-  private apiUrl = 'http://localhost:8000/api/';
-  private usuario: { nombre: string, email: string, isVip: boolean } | null = null;
+ 
+  private usuario: {id:number, nombre: string, email: string, isVip: boolean } | null = null;
   
 
   constructor(private http: HttpClient) {}
 
   getUsers(): Observable<any> {
-    return this.http.get(this.apiUrl+'users');
+    return this.http.get(API_CONFIG.apiUrl+'users');
   }
 
 
 
   setUsuario(user: any): void {
     this.usuario = {
+      id:user.id,
       nombre: user.name,
       email: user.email,
       isVip: user.is_vip === 1
@@ -46,11 +47,12 @@ export class UserService {
   limpiarUsuario(): void {
     this.usuario = null;
     localStorage.removeItem('usuarioSeleccionado');
+    localStorage.removeItem('fechaSeleccionada');
     localStorage.removeItem('datosUsuario');
   }
 
 
-
+/* 
   getListaCarrito(): Observable<any> {
     return this.http.get(this.apiUrl+'listaCarrito');
   }
@@ -68,13 +70,9 @@ export class UserService {
     return this.http.get(this.apiUrl+'compras');
   }
 
-    getfechaEspecial(): Observable<any> {
-    return this.http.get(this.apiUrl+'fechaEspecial');
-  }
-    getProducto(): Observable<any> {
-    return this.http.get(this.apiUrl+'producto');
-  }
-
+ 
+ 
+ */
 
 
 }

@@ -37,19 +37,19 @@
   </button>
 
 
-  <mat-menu #userMenu="matMenu">
+  <mat-menu #userMenu="matMenu" style="width: 50%;">
     <div class="info-user" style="display: flex;">
       
       <span class="name-user"> {{user.nombre}}</span>
       <span class="email-user">{{user.email}}</span>
-      @if(user.is_vip === 1){
+      @if(user.isVip){
         <span class="type-user">VIP</span>
       }
       
 
     </div>
 
-    <button mat-menu-item>
+    <button mat-menu-item (click)="exit()">
       <mat-icon>exit_to_app</mat-icon>
       <span>SALIR</span>
     </button>

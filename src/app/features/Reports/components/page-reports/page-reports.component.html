@@ -1,64 +1,62 @@
 <app-header></app-header>
 
 <main>
-    <mat-card class="content-report">
-        <mat-card-content>
-            <span>Reportes de clientes</span>
-            <br>
-            <br>
-            <div style="display: flex; flex-direction: column; ">
-                <mat-form-field appearance="outline">
-                    <mat-label>Tipo de cliente</mat-label>
-                    <mat-select>
-                        @for (food of foods; track food) {
-                        <mat-option [value]="food.value">{{food.viewValue}}</mat-option>
-                        }
-                    </mat-select>
-                </mat-form-field>
+  <mat-card class="content-report">
+    <mat-card-content>
+      <span>Reportes de clientes</span>
+      <br /><br />
 
-                <!-- @if(){} -->
-                <div style="display: flex ">
-                    <mat-form-field appearance="outline">
-                        <mat-label>Año</mat-label>
-                        <mat-select>
-                            @for (anio of anios; track anio) {
-                            <mat-option [value]="anio.value">{{anio.viewValue}}</mat-option>
-                            }
-                        </mat-select>
-                    </mat-form-field>
-                    <mat-form-field appearance="outline" style="margin-left: 1rem;">
-                        <mat-label>Meses</mat-label>
-                        <mat-select>
-                            @for (mes of meses; track mes) {
-                            <mat-option [value]="mes.value">{{mes.viewValue}}</mat-option>
-                            }
-                        </mat-select>
-                    </mat-form-field>
-                </div>
+      <div style="display: flex; flex-direction: column;">
+        <!-- Selector tipo de consulta -->
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo de cliente</mat-label>
+          <mat-select [(ngModel)]="tipoConsulta">
+            <mat-option value="actuales">Clientes VIP actuales</mat-option>
+            <mat-option value="alta">Clientes que pasaron a ser VIP</mat-option>
+            <mat-option value="baja">Clientes que dejaron de ser VIP</mat-option>
+          </mat-select>
+        </mat-form-field>
 
-                <button mat-fab extended>
-                    Generar Reporte
-                </button>
-                <br>
-                <br>
-                <span style="margin-bottom: 20px;">Clientes VIP</span>
-                <mat-list role="list">
-                    <mat-list-item role="listitem" style="height: 35%; margin-bottom: 10px;">
-                        <!-- @for() -->
-                        <div style="display: flex; flex-direction: column;">
-                            <span class="nombre">John Doe</span>
-                            <span class="email">johnexample.com</span>
-                            <span class="fecha">VIP desde: 14/1/2023</span>
-                        </div>
-                    </mat-list-item>
-                    <mat-divider></mat-divider>
-                    <mat-list-item role="listitem">Item 2</mat-list-item>
-                    <mat-list-item role="listitem">Item 3</mat-list-item>
-                </mat-list>
+        <!-- Selectores Año y Mes (solo para alta y baja) -->
+        <div style="display: flex" *ngIf="tipoConsulta !== 'actuales'">
+          <mat-form-field appearance="outline">
+            <mat-label>Año</mat-label>
+            <mat-select [(ngModel)]="anioSeleccionado">
+              <mat-option *ngFor="let anio of anios" [value]="anio.value">
+                {{ anio.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
 
+          <mat-form-field appearance="outline" style="margin-left: 1rem;">
+            <mat-label>Mes</mat-label>
+            <mat-select [(ngModel)]="mesSeleccionado">
+              <mat-option *ngFor="let mes of meses" [value]="mes.value">
+                {{ mes.viewValue }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
 
+        <!-- Botón -->
+        <button mat-fab extended (click)="generarReporte()" style="margin-top: 1rem;">
+          Generar Reporte
+        </button>
+
+        <br /><br />
+        <span style="margin-bottom: 20px;">Clientes VIP</span>
+
+        <mat-list role="list">
+          <mat-list-item *ngFor="let cliente of clientes" role="listitem" style="margin-bottom: 10px;">
+            <div style="display: flex; flex-direction: column;">
+              <span class="nombre">{{ cliente.nombre }}</span>
+              <span class="email">{{ cliente.email }}</span>
+              <span *ngIf="cliente.fecha_alta">VIP desde: {{ cliente.fecha_alta | date: 'dd/MM/yyyy' }}</span>
+              <span *ngIf="cliente.fecha_baja">Dejó de ser VIP: {{ cliente.fecha_baja | date: 'dd/MM/yyyy' }}</span>
             </div>
-        </mat-card-content>
-    </mat-card>
-
+          </mat-list-item>
+        </mat-list>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </main>

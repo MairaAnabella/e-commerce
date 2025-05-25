@@ -24,12 +24,12 @@ constructor(private userService: UserService) {}
 
 ngOnInit() {
   this.userService.getUsers().subscribe(data => console.log('user ',  data));
-  this.userService.getCarritoProducto().subscribe(data => console.log('relacion producto/ carrito',data));
+/*   this.userService.getCarritoProducto().subscribe(data => console.log('relacion producto/ carrito',data));
   this.userService.getCompras().subscribe(data => console.log('compras ',data));
   this.userService.getListaCarrito().subscribe(data => console.log('carritos ',data));
-  this.userService.getProducto().subscribe(data => console.log('productos ',data));
+ 
   this.userService.getProductoCarrito(1).subscribe(data => console.log('productos dentro del carrito ',data));
-  this.userService.getfechaEspecial().subscribe(data => console.log('fechas especiales ',data));
+  this.userService.getfechaEspecial().subscribe(data => console.log('fechas especiales ',data)); */
 }
 
 }

@@ -39,6 +39,17 @@
           </mat-select>
         </mat-form-field>
 
+        <mat-form-field appearance="outline">
+          <mat-label>Seleccione una fecha de simulacion </mat-label>
+          <mat-select [(ngModel)]="fechaSeleccionada">
+            @for (fecha of fechas; track fecha) {
+            <mat-option [value]="fecha.id">
+              {{ fecha.fecha | date:'d/M/yyyy' }}
+            </mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+
         <mat-card-actions>
           <button mat-button (click)="ingresar()" [disabled]="!clienteSeleccionado">INGRESAR COMO EL USUARIO
             SELECCIONADO</button>
