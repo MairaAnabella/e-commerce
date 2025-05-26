@@ -7,6 +7,7 @@ import { CartItem } from '../../../../shared/interfaces/cart-item';
 import { CartService } from '../../services/cart.service';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
+import {MatDividerModule} from '@angular/material/divider';
 @Component({
   selector: 'app-page-cart',
   imports: [
@@ -14,7 +15,8 @@ import { Router } from '@angular/router';
     HeaderComponent,
     MatButtonModule,
     MatCardModule,
-    MatIconModule
+    MatIconModule,
+    MatDividerModule
 
   ],
   templateUrl: './page-cart.component.html',
@@ -26,6 +28,11 @@ export class PageCartComponent {
   datosUsuario: any;
   fechaSeleccionada: any;
   tipoCarrito: string = '';
+descuentoCalculado = {
+  descuentoobtenido: 0,
+  montoPagado: 0,
+  
+};
   constructor(private cartService: CartService, private router: Router) { }
 
 
@@ -40,6 +47,10 @@ export class PageCartComponent {
       console.log(this.cartCount)
     });
 
+this.descuentoCalculado = this.cartService.calcularDescuento();
+
+
+
 
     const datosUsuarioStr = localStorage.getItem('datosUsuario');
     const fechaSeleccionadaStr = localStorage.getItem('fechaSeleccionada');
@@ -50,12 +61,12 @@ export class PageCartComponent {
     this.tipoCarrito = this.determinarTipoCarrito();
   }
 
+
   determinarTipoCarrito(): 'VIP' | 'PROMO_FECHA' | 'NORMAL' {
     if (this.datosUsuario?.isVip) return 'VIP';
     if (this.fechaSeleccionada?.descripcion) return 'PROMO_FECHA';
     return 'NORMAL';
   }
-
 
 
   getTotal(): number {
@@ -83,6 +94,7 @@ export class PageCartComponent {
 
   cancelarCarrito() {
     this.cartService.clearCart();
+    this.router.navigate(['/dashboard']);
   }
 
   finalizarCompra() {

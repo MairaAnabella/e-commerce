@@ -27,7 +27,14 @@
             <mat-card appearance="outlined">
                 <mat-card-header>
                     <mat-card-title>Tipo de carrito:{{tipoCarrito}}</mat-card-title>
-                    <mat-card-subtitle>10% discount applied for VIP status</mat-card-subtitle>
+                    @if(tipoCarrito=='VIP'){
+
+                    <mat-card-subtitle>Se bonifica el producto más barato y se hace un descuento general de $500</mat-card-subtitle>
+                    }
+                    @if(tipoCarrito=='PROMO_FECHA'){
+                    <mat-card-subtitle>Fecha especial se hace un descuento general de $300</mat-card-subtitle>
+                    }
+                   
                 </mat-card-header>
             </mat-card>
             <div class="order-summary-card">
@@ -45,9 +52,22 @@
                         <button mat-icon-button (click)="increaseQuantity(item)"> <mat-icon>add</mat-icon></button>
                     </div>
                 </div>
+
+
+
+
                 <div class="total">
+
+                    <span>SubTotal</span>
+                    <span class="number">{{ getTotal() | currency:'USD' }}</span>
+
+                    <mat-divider></mat-divider>
+
+                    <span class="descuento">Descuento</span>
+                    <span class="number descuento">{{ descuentoCalculado.descuentoobtenido | currency:'USD' }}</span>
+                    <mat-divider></mat-divider>
                     <span>Total</span>
-                    <span>{{ getTotal() | currency:'USD' }}</span>
+                    <span class="number">{{ descuentoCalculado.montoPagado | currency:'USD' }}</span>
                 </div>
             </div>
         </mat-card-content>
@@ -55,7 +75,7 @@
             <button mat-fab class="btn" (click)="finalizarCompra()">
                 Proceder al pago
             </button>
-            <button mat-fab  style="margin-left: 1rem;" class="btn" (click)="cancelarCarrito()">
+            <button mat-fab style="margin-left: 1rem;" class="btn" (click)="cancelarCarrito()">
                 Cancelar Carrito
             </button>
         </mat-card-actions>

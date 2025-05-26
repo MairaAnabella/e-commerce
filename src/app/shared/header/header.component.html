@@ -10,16 +10,18 @@
 
 
   <div class="toolbar-links">
+      <button mat-icon-button matTooltip="Ir a productos" (click)="goToProducts()">
+      <mat-icon>storefront</mat-icon>
+    </button>
+
 
     <button mat-icon-button matTooltip="Ver clientes" (click)="goToReport()">
       <mat-icon>co_present</mat-icon>
     </button>
 
-    <button mat-icon-button matTooltip="Ir a productos" (click)="goToProducts()">
-      <mat-icon>storefront</mat-icon>
-    </button>
+  
 
-    <button mat-icon-button [matBadge]="cartCount" matBadgeColor="accent" [matBadgeHidden]="!cartCount"
+    <button mat-icon-button [matBadge]="cartCount" matTooltip="ir al Carrito" matBadgeColor="accent" [matBadgeHidden]="!cartCount"
       (click)="goToCard()">
       <mat-icon>shopping_cart</mat-icon>
     </button>

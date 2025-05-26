@@ -138,6 +138,39 @@ export class CartService {
       error: err => console.error('Error eliminando carrito en backend:', err)
     });
   }
+calcularDescuento(){
+    const datosUsuarioStr = localStorage.getItem('datosUsuario');
+  const fechaSeleccionadaStr = localStorage.getItem('fechaSeleccionada');
+  
+  const datosUsuario = datosUsuarioStr ? JSON.parse(datosUsuarioStr) : null;
+  const fechaSeleccionada = fechaSeleccionadaStr ? JSON.parse(fechaSeleccionadaStr) : null;
+
+    const cantidadTotal = this.cartItems.reduce((acc, item) => acc + item.cantidad, 0);
+  const montoBruto = this.cartItems.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
+  let descuento = 0;
+
+  if (datosUsuario?.isVip) {
+    // Solo aplica descuentos VIP
+    const productosOrdenados = [...this.cartItems].sort((a, b) => a.precio - b.precio);
+    const productoMasBarato = productosOrdenados[0];
+    console.log(productoMasBarato)
+    if (productoMasBarato) {
+      console.log(productoMasBarato.precio)
+      descuento += Number(productoMasBarato.precio);
+      console.log(descuento)
+    }
+    descuento += 500;
+  } else {
+    // Aplica otras promociones SOLO si NO es VIP
+    if (cantidadTotal === 4) descuento += montoBruto * 0.25;
+    if (cantidadTotal > 10) descuento += 100;
+    if (fechaSeleccionada?.tipo === 'PROMO_ESPECIAL') descuento += 300;
+  }
+
+  descuento = Number(descuento) || 0;
+  const montoPagado = Math.max(0, montoBruto - descuento);
+  return {'descuentoobtenido':descuento,'montoPagado':montoPagado}
+}
 
 finalizarCompra(): Observable<Object | null> {
   const datosUsuarioStr = localStorage.getItem('datosUsuario');
@@ -145,7 +178,7 @@ finalizarCompra(): Observable<Object | null> {
 
   const datosUsuario = datosUsuarioStr ? JSON.parse(datosUsuarioStr) : null;
   const fechaSeleccionada = fechaSeleccionadaStr ? JSON.parse(fechaSeleccionadaStr) : null;
-
+console.log(fechaSeleccionada.descripcion)
   if (!datosUsuario || !this.carritoId) {
     console.error('Faltan datos del usuario o carrito');
     return of(null);
@@ -155,19 +188,24 @@ finalizarCompra(): Observable<Object | null> {
   const montoBruto = this.cartItems.reduce((acc, item) => acc + item.precio * item.cantidad, 0);
   let descuento = 0;
 
-  if (cantidadTotal === 4) descuento += montoBruto * 0.25;
-  if (cantidadTotal > 10) descuento += 100;
-  if (fechaSeleccionada?.descripcion) descuento += 300;
   if (datosUsuario?.isVip) {
+    // Solo aplica descuentos VIP
     const productosOrdenados = [...this.cartItems].sort((a, b) => a.precio - b.precio);
     const productoMasBarato = productosOrdenados[0];
-    if (productoMasBarato && typeof productoMasBarato.precio === 'number') {
-      descuento += productoMasBarato.precio;
+    console.log(productoMasBarato)
+    if (productoMasBarato) {
+      console.log(productoMasBarato.precio)
+      descuento += Number(productoMasBarato.precio);
+      console.log(descuento)
     }
     descuento += 500;
+  } else {
+    // Aplica otras promociones SOLO si NO es VIP
+    if (cantidadTotal === 4) descuento += montoBruto * 0.25;
+    if (cantidadTotal > 10) descuento += 100;
+    if (fechaSeleccionada?.tipo === 'PROMO_ESPECIAL') descuento += 300;
   }
 
-  // Aseguramos que descuento y montoPagado sean números válidos
   descuento = Number(descuento) || 0;
   const montoPagado = Math.max(0, montoBruto - descuento);
 
@@ -179,9 +217,11 @@ finalizarCompra(): Observable<Object | null> {
     monto_bruto: montoBruto.toFixed(2),
     descuento_total: descuento.toFixed(2)
   };
+
   this.cartItems = [];
   return this.http.post(`${API_CONFIG.apiUrl}compras`, payload);
 }
+
 
 
 

@@ -74,11 +74,21 @@
   .total {
     display: flex;
     justify-content: space-between;
+    flex-direction: column;
     font-weight: bold;
     font-size: 1.1rem;
     margin-top: 1.5rem;
     border-top: 1px solid #ddd;
     padding-top: 0.75rem;
+    span{
+      margin-bottom: 0.5rem;
+    }
+    .number{
+      font-weight: 400;
+    }
+    .descuento{
+      color: rgb(30, 209, 30);
+    }
   }
 
  
