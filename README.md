@@ -1,59 +1,82 @@
-# ECommerce
+# Carrito E-commerce - Examen Técnico Fullstack
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.12.
+Este proyecto simula una aplicación e-commerce que permite crear y gestionar distintos tipos de carritos de compra, con lógica de promociones por fecha especial o tipo de usuario.
 
-## Development server
+## Tecnologías utilizadas
 
-To start a local development server, run:
+- **Backend**: Laravel 12 (PHP 8.x)
+- **Frontend**: Angular 19 + Angular Material
+- **Base de datos**: MySQL
+
+
+---
+
+## Requisitos
+
+### Backend
+
+- PHP 8.1 o superior
+- Composer
+- MySQL 8+
+- Laravel 12
+- Extensiones PHP comunes (`pdo`, `mbstring`, `openssl`, etc.)
+
+### Frontend
+
+- Node.js 18.x o superior
+- Angular CLI 19.x
+
+---
+
+## Instalación
+
+### 1. Clonar el repositorio API
 
 ```bash
+git clone https://github.com/MairaAnabella/e-commerce.API.git
+cd e-commerce.API
+```
+
+### 2. Configurar el backend
+
+```bash
+cd laravel-api
+cp .env.example .env
+composer install
+php artisan key:generate
+php artisan migrate --seed
+php artisan serve
+```
+
+- **Puerto por defecto**: `http://localhost:8000`
+
+### 3. Configurar el frontend
+
+```bash
+git clone  https://github.com/MairaAnabella/e-commerce.git
+cd e-commerce
+```
+
+```bash
+cd e-commerce
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Puerto por defecto**: `http://localhost:4200`
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Funcionalidades
 
-```bash
-ng generate component component-name
-```
+- Crear, eliminar y consultar carritos
+- Agregar o eliminar productos de carritos
+- Consultar total con descuentos según reglas
+- Simulación de fecha
+- Gestión de estado VIP de los clientes
+- Visualización de compras finalizadas
+- Consultas de clientes que pasaron a ser VIP, dejaron de ser VIP, etc.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
