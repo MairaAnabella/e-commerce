@@ -52,27 +52,7 @@ export class UserService {
   }
 
 
-/* 
-  getListaCarrito(): Observable<any> {
-    return this.http.get(this.apiUrl+'listaCarrito');
-  }
 
-    getProductoCarrito(carritoId:any): Observable<any> {
-      
-    return this.http.get(`${this.apiUrl}carritos/${carritoId}/productoCarrito`);
-  }
-
-    getCarritoProducto(): Observable<any> {
-    return this.http.get(this.apiUrl+'carritoProducto');
-  }
-
-    getCompras(): Observable<any> {
-    return this.http.get(this.apiUrl+'compras');
-  }
-
- 
- 
- */
 
 
 }

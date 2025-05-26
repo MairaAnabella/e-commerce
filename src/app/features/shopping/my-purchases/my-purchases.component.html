@@ -7,7 +7,7 @@
     <mat-card-content>
       <mat-accordion>
         @for(compra of compras; track compra){
-        <mat-expansion-panel >
+        <mat-expansion-panel>
           <mat-expansion-panel-header style="height: 100%">
             <mat-panel-title>
               <div style="display: flex; flex-direction: column">
@@ -28,8 +28,8 @@
             <mat-card-content>
               <div class="order-summary-card">
                 @for(item of compra.carrito.productos; track item){
-                <div  class="cart-item">
-                  <div class="image-box"></div>
+                <div class="cart-item">
+                   <div class="image-box"><img src="assets/productDemo.jpg" alt="" ></div>
                   <div class="info">
                     <div class="name">{{ item.nombre }}</div>
                     <div class="price">
@@ -37,16 +37,33 @@
                     </div>
                   </div>
                 </div>
-            }
-                <div class="total">
-                  <span>Total</span>
-                  <span>{{ compra.monto_pagado | currency:'USD' }}</span>
+                }
+                <div class="container-price">
+                  <div class="subTotal">
+
+                    <span>SubTotal:</span>
+                    <span class="number">{{ compra.monto_bruto| currency:'USD' }}</span>
+                  </div>
+
+                  <mat-divider></mat-divider>
+                  <div class="descuento">
+                    <span class="descuento">Ahorro Total: </span>
+                    <span class="number descuento">-{{ compra.descuento_total| currency:'USD' }}</span>
+
+                  </div>
+                  <mat-divider></mat-divider>
+                  <div class="total">
+
+                    <span>Total:</span>
+                    <span class="number">{{ compra.monto_pagado| currency:'USD' }}</span>
+                  </div>
+
                 </div>
               </div>
             </mat-card-content>
           </div>
         </mat-expansion-panel>
-    }
+        }
       </mat-accordion>
     </mat-card-content>
   </div>

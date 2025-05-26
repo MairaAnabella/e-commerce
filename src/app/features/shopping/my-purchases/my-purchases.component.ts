@@ -69,7 +69,7 @@ export class MyPurchasesComponent {
   isLinear = true;
   cartItems: CartItem[] = [];
   cartCount: number = 0;
-  constructor(private cartService: CartService, private router: Router,private http: HttpClient) { }
+  constructor(private cartService: CartService,private http: HttpClient) { }
   ngOnInit(): void {
     const datosUsuarioStr = localStorage.getItem('datosUsuario');
   const datosUsuario = datosUsuarioStr ? JSON.parse(datosUsuarioStr) : null;
@@ -85,18 +85,12 @@ this.http.get<Compra[]>(`http://localhost:8000/api/compras/finalizadas/${usuario
   .subscribe({
     next: (response) => {
       this.compras = response;
-      console.log(this.compras);
+     
     },
     error: (error) => {
       console.error('Error al obtener compras:', error);
     }
   });
-
-
-
-
-
-
 
   }
 

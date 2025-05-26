@@ -18,16 +18,16 @@
         </mat-form-field>
 
         <!-- Selectores Año y Mes (solo para alta y baja) -->
-         @if(tipoSeleccionado != 'actuales'){
-        <div style="display: flex" >
+        @if(tipoSeleccionado != 'actuales'){
+        <div style="display: flex">
           <mat-form-field appearance="outline">
             <mat-label>Año</mat-label>
             <mat-select [(ngModel)]="anioSeleccionado">
               @for(anio of anios ; track anio){
-              <mat-option  [value]="anio.value">
+              <mat-option [value]="anio.value">
                 {{ anio.viewValue }}
               </mat-option>
-            }
+              }
             </mat-select>
           </mat-form-field>
 
@@ -35,42 +35,45 @@
             <mat-label>Mes</mat-label>
             <mat-select [(ngModel)]="mesSeleccionado">
               @for(mes of meses ; track mes ){
-                <mat-option  [value]="mes.value">
-                  {{ mes.viewValue }}
-                </mat-option>
+              <mat-option [value]="mes.value">
+                {{ mes.viewValue }}
+              </mat-option>
               }
             </mat-select>
           </mat-form-field>
         </div>
-      }
-       
-        <button mat-fab extended (click)="obtenerClientes()" style="margin-top: 1rem;">
+        }
+
+        <button mat-fab extended (click)="obtenerClientes()" [disabled]="(tipoSeleccionado !== 'actuales') &&(!anioSeleccionado || !mesSeleccionado)" style="margin-top: 1rem;">
           Generar Reporte
         </button>
 
         <br /><br />
         @if(tipoSeleccionado=='actuales' || tipoSeleccionado ==='alta'){
 
-          <span style="margin-bottom: 20px;">Clientes VIP</span>
+        <span style="margin-bottom: 20px;">Clientes VIP</span>
         }@else {
-          <span style="margin-bottom: 20px;">Clientes no VIP</span>
+        <span style="margin-bottom: 20px;">Clientes no VIP</span>
 
+        }
+        @if(mensaje){
+        <p>{{ mensaje }}</p>
         }
 
         <mat-list role="list">
           @for(cliente of clientes ; track cliente){
-            <mat-list-item  role="listitem" style="margin-bottom: 10px;">
-              <div style="display: flex; flex-direction: column;">
-                <span class="nombre">{{ cliente.name }}</span>
-                <span class="email">{{ cliente.email }}</span>
-                @if(cliente.fecha_alta){
-                  <span>VIP desde: {{ cliente.fecha_alta | date: 'dd/MM/yyyy' }}</span>
-                }
-                @if(cliente.fecha_alta){
-                  <span>Dejó de ser VIP: {{ cliente.fecha_baja | date: 'dd/MM/yyyy' }}</span>
-                }
-              </div>
-            </mat-list-item>
+          <mat-list-item role="listitem" style="margin-bottom: 10px;">
+            <div style="display: flex; flex-direction: column;">
+              <span class="nombre">{{ cliente.name }}</span>
+              <span class="email">{{ cliente.email }}</span>
+              @if(cliente.fecha_alta){
+              <span>VIP desde: {{ cliente.fecha_alta | date: 'dd/MM/yyyy' }}</span>
+              }
+              @if(cliente.fecha_alta){
+              <span>Dejó de ser VIP: {{ cliente.fecha_baja | date: 'dd/MM/yyyy' }}</span>
+              }
+            </div>
+          </mat-list-item>
           }
         </mat-list>
       </div>

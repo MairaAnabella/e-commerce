@@ -29,17 +29,18 @@
                     <mat-card-title>Tipo de carrito:{{tipoCarrito}}</mat-card-title>
                     @if(tipoCarrito=='VIP'){
 
-                    <mat-card-subtitle>Se bonifica el producto más barato y se hace un descuento general de $500</mat-card-subtitle>
+                    <mat-card-subtitle>Se bonifica el producto más barato (cuando existe mas de un producto) y se hace un descuento general de
+                        $500</mat-card-subtitle>
                     }
                     @if(tipoCarrito=='PROMO_FECHA'){
                     <mat-card-subtitle>Fecha especial se hace un descuento general de $300</mat-card-subtitle>
                     }
-                   
+
                 </mat-card-header>
             </mat-card>
             <div class="order-summary-card">
                 <div *ngFor="let item of cartItems" class="cart-item">
-                    <div class="image-box"></div>
+                    <div class="image-box"><img src="assets/productDemo.jpg" alt="" ></div>
                     <div class="info">
                         <div class="name">{{ item.nombre }}</div>
                         <div class="price">
@@ -56,18 +57,26 @@
 
 
 
-                <div class="total">
+                <div class="container-price">
+                    <div class="subTotal">
 
-                    <span>SubTotal</span>
-                    <span class="number">{{ getTotal() | currency:'USD' }}</span>
+                        <span>SubTotal</span>
+                        <span class="number">{{ getTotal() | currency:'USD' }}</span>
+                    </div>
 
                     <mat-divider></mat-divider>
+                    <div class="descuento">
 
-                    <span class="descuento">Descuento</span>
-                    <span class="number descuento">{{ descuentoCalculado.descuentoobtenido | currency:'USD' }}</span>
+                        <span class="descuento">Ahorro Total:</span>
+                        <span class="number descuento">-{{ descuentoCalculado.descuentoobtenido | currency:'USD'
+                            }}</span>
+                    </div>
                     <mat-divider></mat-divider>
-                    <span>Total</span>
-                    <span class="number">{{ descuentoCalculado.montoPagado | currency:'USD' }}</span>
+                    <div class="total">
+
+                        <span>Total</span>
+                        <span class="number">{{ descuentoCalculado.montoPagado | currency:'USD' }}</span>
+                    </div>
                 </div>
             </div>
         </mat-card-content>

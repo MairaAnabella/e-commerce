@@ -35,12 +35,7 @@ export class ProductsComponent {
     return this.products.slice(0, this.visibleProductsCount);
   }
 
-  showMore() {
-    this.visibleProductsCount += 4; // o cualquier cantidad que quieras mostrar de más
-  }
-
   addToCart(product: any) {
-    console.log('clcik')
     this.cartService.addItem(product);
   }
 }

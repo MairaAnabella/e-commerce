@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HeaderComponent } from '../../../../shared/header/header.component';
 import { MatButtonModule } from '@angular/material/button';
@@ -7,7 +7,8 @@ import { CartItem } from '../../../../shared/interfaces/cart-item';
 import { CartService } from '../../services/cart.service';
 import { MatIconModule } from '@angular/material/icon';
 import { Router } from '@angular/router';
-import {MatDividerModule} from '@angular/material/divider';
+import { MatDividerModule } from '@angular/material/divider';
+
 @Component({
   selector: 'app-page-cart',
   imports: [
@@ -17,40 +18,33 @@ import {MatDividerModule} from '@angular/material/divider';
     MatCardModule,
     MatIconModule,
     MatDividerModule
-
   ],
   templateUrl: './page-cart.component.html',
-  styleUrl: './page-cart.component.scss'
+  styleUrls: ['./page-cart.component.scss']
 })
-export class PageCartComponent {
+export class PageCartComponent implements OnInit {
   cartItems: CartItem[] = [];
   cartCount: number = 0;
   datosUsuario: any;
   fechaSeleccionada: any;
   tipoCarrito: string = '';
-descuentoCalculado = {
-  descuentoobtenido: 0,
-  montoPagado: 0,
-  
-};
+  descuentoCalculado = {
+    descuentoobtenido: 0,
+    montoPagado: 0,
+  };
+
   constructor(private cartService: CartService, private router: Router) { }
-
-
 
   ngOnInit(): void {
     this.cartService.cartItems$.subscribe(items => {
       this.cartItems = items;
-      console.log('Carrito actualizado:', this.cartItems);
+      this.descuentoCalculado = this.cartService.calcularDescuento(); 
     });
+
     this.cartService.cartCount$.subscribe(count => {
       this.cartCount = count;
-      console.log(this.cartCount)
+    
     });
-
-this.descuentoCalculado = this.cartService.calcularDescuento();
-
-
-
 
     const datosUsuarioStr = localStorage.getItem('datosUsuario');
     const fechaSeleccionadaStr = localStorage.getItem('fechaSeleccionada');
@@ -61,36 +55,35 @@ this.descuentoCalculado = this.cartService.calcularDescuento();
     this.tipoCarrito = this.determinarTipoCarrito();
   }
 
-
   determinarTipoCarrito(): 'VIP' | 'PROMO_FECHA' | 'NORMAL' {
     if (this.datosUsuario?.isVip) return 'VIP';
     if (this.fechaSeleccionada?.descripcion) return 'PROMO_FECHA';
     return 'NORMAL';
   }
 
-
   getTotal(): number {
     return this.cartService.getTotal();
   }
 
-  increaseQuantity(item: any) {
+  increaseQuantity(item: CartItem) {
     this.cartService.increaseQuantity(item);
   }
 
-  decreaseQuantity(item: any) {
+  decreaseQuantity(item: CartItem) {
     this.cartService.decreaseQuantity(item);
   }
 
   clearCart() {
     this.cartService.clearCart();
   }
-  removeItem(item: any) {
+
+  removeItem(item: CartItem) {
     this.cartService.removeItem(item);
   }
-  goToProducts() {
-    this.router.navigate(['/dashboard'])
-  }
 
+  goToProducts() {
+    this.router.navigate(['/dashboard']);
+  }
 
   cancelarCarrito() {
     this.cartService.clearCart();
@@ -98,16 +91,14 @@ this.descuentoCalculado = this.cartService.calcularDescuento();
   }
 
   finalizarCompra() {
-    console.log('hola')
+   
     this.cartService.finalizarCompra().subscribe({
       next: () => {
-
         this.cartItems = [];
         this.router.navigate(['/dashboard']);
       },
       error: (error: any) => {
         console.error('Error al finalizar compra:', error);
-
       }
     });
   }

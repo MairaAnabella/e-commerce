@@ -51,7 +51,6 @@ export class SelectUserLoginComponent {
   ngOnInit() {
     this.userService.getUsers().subscribe(data => this.users = data);
     this.fechaEspecial.getfechaEspecial().subscribe(data => this.fechas = data);
-    console.log(this.fechas)
   }
 
   clickEvent(event: MouseEvent) {

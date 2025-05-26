@@ -32,7 +32,7 @@ export class HeaderComponent {
   ngOnInit() {
     this.cartService.cartCount$.subscribe(count => {
       this.cartCount = count;
-      console.log(this.cartCount)
+
     });
    this.user =this.userService.getUsuario();
   
@@ -52,7 +52,8 @@ export class HeaderComponent {
     this.router.navigate(['/MyPurchases'])
   }
    exit(){
-    this.userService.limpiarUsuario();
-    this.router.navigate(['/MyPurchases'])
+     this.userService.limpiarUsuario();
+     this.cartService.logoutOrChangeUser();
+    this.router.navigate(['/'])
   }
 }

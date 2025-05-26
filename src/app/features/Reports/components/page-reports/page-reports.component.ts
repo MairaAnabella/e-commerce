@@ -8,7 +8,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
-import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { API_CONFIG } from '../../../../config/config';
 import { ClientesVipService } from '../../services/clientes-vip.service';
@@ -46,12 +45,13 @@ export class PageReportsComponent {
   mesSeleccionado: string = '';
   clientes: ClienteVIP[] = [];
   url?: string;
+  mensaje:string=''
 
 
   anios = [
     { value: '2024', viewValue: '2024' },
     { value: '2025', viewValue: '2025' },
-    // Agregá más años si necesitás
+    
   ];
 
   meses = [
@@ -69,42 +69,54 @@ export class PageReportsComponent {
     { value: '12', viewValue: 'Diciembre' }
   ];
   tipoSeleccionado: string = 'actuales';
-  constructor(private http: HttpClient, private clienteService:ClientesVipService) { }
+  constructor( private clienteService:ClientesVipService) { }
 
-  obtenerClientesVip(): void {
-    console.log('hola');
-    const urlBase = API_CONFIG.apiUrl + 'reportes/clientes-vip-actuales';
+obtenerClientesVip(): void {
+  const urlBase = API_CONFIG.apiUrl + 'reportes/clientes-vip-actuales';
 
-    fetch(urlBase)
-      .then(res => {
-        if (!res.ok) throw new Error('Error al consultar los clientes');
-        return res.json();
-      })
-      .then((data: ClienteVIP[]) => {
-        this.clientes = data;
-      })
-      .catch(err => {
-        console.error('Error al obtener reporte:', err);
-      });
-
-  }
+  fetch(urlBase)
+    .then(res => {
+      if (!res.ok) throw new Error('Error al consultar los clientes');
+      return res.json();
+    })
+    .then((data: ClienteVIP[]) => {
+      this.clientes = data;
+      this.mensaje = data.length === 0 ? 'No hay clientes VIP actuales.' : '';
+    })
+    .catch(err => {
+      console.error('Error al obtener reporte:', err);
+      this.mensaje = 'Ocurrió un error al cargar los clientes.';
+    });
+}
 
 
 obtenerClientes(): void {
   const mes = Number(this.mesSeleccionado);
-const anio = Number(this.anioSeleccionado);
-console.log(this.tipoSeleccionado)
+  const anio = Number(this.anioSeleccionado);
+
   if (this.tipoSeleccionado === 'actuales') {
     this.obtenerClientesVip();
   } else if (this.tipoSeleccionado === 'alta') {
     this.clienteService.getAltasVip(mes, anio).subscribe({
-      next: (data) => this.clientes = data,
-      error: (err) => console.error('Error al obtener altas VIP:', err)
+      next: (data) => {
+        this.clientes = data;
+        this.mensaje = data.length === 0 ? 'No hubo altas VIP en ese período.' : '';
+      },
+      error: (err) => {
+        console.error('Error al obtener altas VIP:', err);
+        this.mensaje = 'Ocurrió un error al cargar las altas VIP.';
+      }
     });
   } else if (this.tipoSeleccionado === 'baja') {
-    this.clienteService.getBajasVip(mes,anio).subscribe({
-      next: (data) => this.clientes = data,
-      error: (err) => console.error('Error al obtener bajas VIP:', err)
+    this.clienteService.getBajasVip(mes, anio).subscribe({
+      next: (data) => {
+        this.clientes = data;
+        this.mensaje = data.length === 0 ? 'No hubo bajas VIP en ese período.' : '';
+      },
+      error: (err) => {
+        console.error('Error al obtener bajas VIP:', err);
+        this.mensaje = 'Ocurrió un error al cargar las bajas VIP.';
+      }
     });
   }
 }
