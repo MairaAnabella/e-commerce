@@ -46,6 +46,7 @@ export class ResumeCartComponent {
     });
 
     this.descuentoCalculado = this.cartService.calcularDescuento();
+  
   }
 
 

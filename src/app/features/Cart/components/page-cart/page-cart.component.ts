@@ -94,12 +94,13 @@ export class PageCartComponent implements OnInit {
    
     this.cartService.finalizarCompra().subscribe({
       next: () => {
-        this.cartItems = [];
+        
         this.router.navigate(['/dashboard']);
       },
       error: (error: any) => {
         console.error('Error al finalizar compra:', error);
       }
     });
+  
   }
 }

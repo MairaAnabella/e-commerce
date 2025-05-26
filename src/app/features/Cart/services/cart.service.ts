@@ -218,8 +218,8 @@ export class CartService {
       descuento_total: descuento.toFixed(2)
     };
 
-    this.cartItems = [];
-    return this.http.post(`${API_CONFIG.apiUrl}compras`, payload).pipe(tap(() => this.clearCart()));
+  
+    return this.http.post(`${API_CONFIG.apiUrl}compras`, payload);
   }
 
 
